@@ -35,6 +35,8 @@ const item6 = {
 }
 
 function App() {
+  const [text, setText] = useState('');
+
   const [state, setState] = useState({
     'todo': {
       title: 'Todo',
@@ -50,9 +52,53 @@ function App() {
     }
   })
 
+  const handleDragEnd = ({destination, source}) => {
+    if (!destination) {
+      return
+    }
+    if (destination.index === source.index && destination.droppableId === source.droppableId) {
+      return
+    }
+    //Creating a copy of item before removing it from state
+    const itemCopy = {...state[source.droppableId].items[source.index]}
+
+    setState(prev => {
+      prev = {...prev}
+      //Remove from previous items array
+      prev[source.droppableId].items.splice(source.index, 1)
+      //Adding to new items array location by using splice with deleteCount = 0
+      prev[destination.droppableId].items.splice(destination.index, 0, itemCopy)
+
+      return prev
+    })
+  }
+
+  const addItem = () => {
+    setState(prev => {
+      return {
+        ...prev,
+        todo: {
+          title: 'Todo',
+          items: [
+            {
+              id: v4(),
+              content: text,
+            },
+            ...prev.todo.items
+          ]
+        }
+      }
+    })
+    setText('')
+  }
+
   return (
     <div className="App">
-      <DragDropContext onDragEnd={e => console.log(e)}>
+      <div>
+        <input type='text' value={text} onChange={(e) => setText(e.target.value)}/>
+        <button onClick= {addItem}>Add</button>
+      </div>
+      <DragDropContext onDragEnd={handleDragEnd}>
         {_.map(state, (data, key) => {
           return (
             <div key={key} className={'column'}>
@@ -68,13 +114,13 @@ function App() {
                       {data.items.map((el, index) => {
                         return (
                           <Draggable key={el.id} index={index} draggableId={el.id}>
-                            {(provided) => {
+                            {(provided, snapshot) => {
                               return (
                                 <div
                                   ref={provided.innerRef}
                                   {...provided.draggableProps}
                                   {...provided.dragHandleProps}
-                                  className={'item'}
+                                  className={`item ${snapshot.isDragging && 'dragging'}`}
                                 >
                                   {el.content}
                                 </div>
@@ -83,6 +129,7 @@ function App() {
                           </Draggable>
                         )
                       })}
+                      {provided.placeholder}
                     </div>
                   )
                 }}
