@@ -3,6 +3,14 @@ import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 import './App.css';
 import _ from 'lodash';
 import { v4 } from 'uuid';
+import { Formik } from 'formik';
+import * as Yup from 'yup';
+import TextInput from './TextInput';
+
+const formSchema = Yup.object().shape({
+  email: Yup.string().required('provide an email').email('it needs to be an email address'),
+  password: Yup.string().required('provide a password').min(6)
+})
 
 const item1 = {
   id: v4(),
@@ -52,7 +60,7 @@ function App() {
     }
   })
 
-  const handleDragEnd = ({destination, source}) => {
+  const handleDragEnd = ({ destination, source }) => {
     if (!destination) {
       return
     }
@@ -60,10 +68,10 @@ function App() {
       return
     }
     //Creating a copy of item before removing it from state
-    const itemCopy = {...state[source.droppableId].items[source.index]}
+    const itemCopy = { ...state[source.droppableId].items[source.index] }
 
     setState(prev => {
-      prev = {...prev}
+      prev = { ...prev }
       //Remove from previous items array
       prev[source.droppableId].items.splice(source.index, 1)
       //Adding to new items array location by using splice with deleteCount = 0
@@ -95,8 +103,52 @@ function App() {
   return (
     <div className="App">
       <div>
-        <input type='text' value={text} onChange={(e) => setText(e.target.value)}/>
-        <button onClick= {addItem}>Add</button>
+        {/* <input type='text' value={text} onChange={(e) => setText(e.target.value)}/>
+        <button onClick= {addItem}>Add</button> */}
+        <Formik
+          initialValues={{
+            email: '',
+            password: '',
+          }}
+          validationSchema={formSchema}
+          onSubmit={(data => console.log(data))}
+        >
+          {({
+            handleSubmit,
+            // handleChange,
+            // handleBlur,
+            // values,
+            // errors,
+            // touched
+          }) => {
+            return (
+              <form onSubmit={handleSubmit}>
+                {/* <label htmlFor='email'>Email</label>
+                  <input
+                    type='text'
+                    name={'email'}
+                    value={values.email}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    placeholder={'Email...'}
+                  />
+                  {errors.email && touched.email && <p className={'error'}>{errors.email}</p>} */}
+                <TextInput
+                  name={'email'}
+                  placeholder={'email...'}
+                  label={'Email:'}
+                />
+                <TextInput
+                  name={'password'}
+                  placeholder={'password...'}
+                  label={'Password:'}
+                />
+                <button type={'submit'}>Submit</button>
+              </form>
+
+            )
+          }}
+        </Formik>
       </div>
       <DragDropContext onDragEnd={handleDragEnd}>
         {_.map(state, (data, key) => {

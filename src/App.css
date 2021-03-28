@@ -29,3 +29,11 @@
 .item.dragging {
   background-color: coral;
 }
+
+.input-wrapper {
+  margin-top: 30px;
+}
+
+.error {
+  color: red;
+}
