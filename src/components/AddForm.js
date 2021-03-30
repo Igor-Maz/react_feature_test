@@ -18,15 +18,18 @@ const AddForm = ({ addItem }) => (
             handleSubmit,
         }) => {
             return (
-                <form onSubmit={handleSubmit}>
-                    <TextInput
-                        name={'content'}
-                        placeholder={'provide a task subject'}
-                        label={'Add task:'}
-                    />
-                    <button type={'submit'}>Submit</button>
-                </form>
-
+                <div className={'form'}>
+                    <div className={'form-inside'}>
+                        <form onSubmit={handleSubmit}>
+                            <TextInput
+                                name={'content'}
+                                placeholder={'provide a task subject'}
+                                label={'Add task:'}
+                            />
+                            <button type={'submit'}>Submit</button>
+                        </form>
+                    </div>
+                </div>
             )
         }}
     </Formik>

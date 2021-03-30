@@ -2,8 +2,9 @@ import React from 'react';
 import _ from 'lodash';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 
-const DnD = ({ handleDragEnd, state }) => (
+const DnD = ({ handleDragEnd, state, setState }) => (
     <DragDropContext onDragEnd={handleDragEnd}>
+        <div className={'list'}>
         {_.map(state, (data, key) => {
             return (
                 <div key={key} className={'column'}>
@@ -14,7 +15,7 @@ const DnD = ({ handleDragEnd, state }) => (
                                 <div
                                     ref={provided.innerRef}
                                     {...provided.droppableProps}
-                                    className={'droppable-col'}
+                                    className={`${key}`}
                                 >
                                     {data.items.map((el, index) => {
                                         return (
@@ -28,6 +29,13 @@ const DnD = ({ handleDragEnd, state }) => (
                                                             className={`item ${snapshot.isDragging && 'dragging'}`}
                                                         >
                                                             {el.content}
+                                                            <button 
+                                                            type='button'
+                                                            onClick={() => {
+                                                                const prev = {...state};
+                                                                prev[key].items.splice(index, 1)
+                                                                setState(prev)
+                                                            }}>x</button>
                                                         </div>
                                                     )
                                                 }}
@@ -42,6 +50,7 @@ const DnD = ({ handleDragEnd, state }) => (
                 </div>
             )
         })}
+        </div>
     </DragDropContext>
 )
 

@@ -53,14 +53,13 @@ function App() {
 
   return (
     <div className="App">
-      <div>
-        <AddForm
-          addItem={addItem}
-        />
-      </div>
+      <AddForm
+        addItem={addItem}
+      />
       <DnD
         handleDragEnd={handleDragEnd}
         state={state}
+        setState={setState}
       />
 
     </div>
