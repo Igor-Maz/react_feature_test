@@ -1,47 +1,48 @@
+.window {
+  background-color: rgb(100, 169, 179);
+}
+
 .App {
-    border: 1px solid black;
+    /* border: 1px solid black; */
     width: 80%;
     margin: 0 auto;
     text-align: center;
-    margin-top: 15px;
+    margin-top: 130px;
 }
 
 .form {
-  border: 1px solid black;
+  /* border: 1px solid black; */
   border-radius: 12px;
-  width: 30%;
+  width: 60%;
+  height: 50px;
   margin: 15px;
   padding: 15px;
   background-color: rgb(106, 80, 255);
+  box-shadow: 0 0 10px rgba(0,0,0, 0.4);
+  border-radius: 10px;
 }
-
-
-/* .form .form-inside {
-  display: flex;
-  background-color: blue;
-  flex-direction: column;
-  justify-content: space-around;
-  width: 30%;
-  margin: 30px;
-}*/
 
 .input-wrapper {
   display: inline-block;
+
 }
 
 .form .form-inside{
   display: block;
   justify-content: space-around;
+  margin: 0 auto;
+  padding: 15px;
   flex-wrap: wrap;
   flex-direction: row;
   text-align: right;
 }
 
 .list {
-  border: 1px solid black;
+  /* border: 1px solid black; */
   display: flex;
   justify-content: space-around;
   padding-bottom: 15px;
+  margin-top: 5px;
 }
 
 .list .column {
@@ -53,6 +54,8 @@
   border-radius: 7px;
   display: flex;
   flex-direction: column;
+  box-shadow: 0 0 10px rgba(0,0,0, 0.4);
+  border-radius: 10px;
 }
 
 .todo {
@@ -93,4 +96,61 @@
 
 .error {
   color: red;
+}
+
+.notification-wrapper {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  width: 300px;
+}
+
+.notification-item {
+  box-shadow: 0 0 10px rgba(0,0,0, 0.4);
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 10px;
+  animation: SlideLeft 0.5s;
+  animation-fill-mode: forwards;
+  width: 300px;
+}
+
+@keyframes SlideLeft {
+  0% {
+    margin-left: 120%;
+  }
+  100% {
+    margin-left: 0;
+  }
+}
+
+.notification-item.exit {
+  animation: SlideRight 0.5s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes SlideRight {
+  0% {
+    margin-left: 0;
+  }
+  100% {
+    margin-left: 120%;
+  }
+}
+
+.notification-item p {
+  margin: 0;
+  padding: 10px;
+}
+
+.notification-item .bar {
+  height: 10px;
+}
+
+.notification-item.success .bar {
+  background-color: green;
+}
+
+.notification-item.error .bar {
+  background-color: tomato;
 }

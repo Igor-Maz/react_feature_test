@@ -6,6 +6,7 @@ import data from './data_placeholder';
 
 import DnD from './components/DnD';
 import AddForm from './components/AddForm';
+import NotificationProvider from './notification/NotificationProvider'
 
 
 function App() {
@@ -53,15 +54,16 @@ function App() {
 
   return (
     <div className="App">
-      <AddForm
-        addItem={addItem}
-      />
-      <DnD
-        handleDragEnd={handleDragEnd}
-        state={state}
-        setState={setState}
-      />
-
+      <NotificationProvider>
+        <AddForm
+          addItem={addItem}
+        />
+        <DnD
+          handleDragEnd={handleDragEnd}
+          state={state}
+          setState={setState}
+        />
+      </NotificationProvider>
     </div>
 
   );
