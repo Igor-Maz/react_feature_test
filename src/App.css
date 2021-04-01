@@ -3,7 +3,6 @@
 }
 
 .App {
-    /* border: 1px solid black; */
     width: 80%;
     margin: 0 auto;
     text-align: center;
@@ -11,7 +10,6 @@
 }
 
 .form {
-  /* border: 1px solid black; */
   border-radius: 12px;
   width: 60%;
   height: 50px;
@@ -24,21 +22,16 @@
 
 .input-wrapper {
   display: inline-block;
-
 }
 
 .form .form-inside{
-  display: block;
-  justify-content: space-around;
   margin: 0 auto;
   padding: 15px;
-  flex-wrap: wrap;
-  flex-direction: row;
-  text-align: right;
+  text-align: center;
+  width: 100%;
 }
 
 .list {
-  /* border: 1px solid black; */
   display: flex;
   justify-content: space-around;
   padding-bottom: 15px;

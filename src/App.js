@@ -6,7 +6,7 @@ import data from './data_placeholder';
 
 import DnD from './components/DnD';
 import AddForm from './components/AddForm';
-import NotificationProvider from './notification/NotificationProvider'
+import NotificationProvider from './notifications/NotificationProvider'
 
 
 function App() {

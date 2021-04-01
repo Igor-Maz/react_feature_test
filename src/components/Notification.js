@@ -25,13 +25,17 @@ const Notification = (props) => {
     const handleCloseNotification = () => {
         handlePauseTimer();
         setExit(true);
-        setTimeout(()=>{
+        setTimeout(() => {
             // remove state and therefore the dom
+            props.dispatch({
+                type: 'REMOVE_NOTIFICATION',
+                id: props.id
+            })
         }, 400)
     };
 
-    useEffect(()=>{
-        if (width === 100){
+    useEffect(() => {
+        if (width === 100) {
             //close notification
             handleCloseNotification()
         }
@@ -42,12 +46,11 @@ const Notification = (props) => {
     }, []);
 
     return (
-        <div 
-        onMouseEnter={handlePauseTimer} 
-        onMouseLeave={handleStartTimer} 
-        className={`notification-item ${
-            props.type === "SUCCESS" ? "success" : "error"
-        } ${exit ? 'exit' : ''}`}
+        <div
+            onMouseEnter={handlePauseTimer}
+            onMouseLeave={handleStartTimer}
+            className={`notification-item ${props.type === "SUCCESS" ? "success" : "error"
+                } ${exit ? 'exit' : ''}`}
         >
             <p>{props.message}</p>
             {/* <button onClick={()=>setExit(true)}>x</button> */}
